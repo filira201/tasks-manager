@@ -1,11 +1,18 @@
-import { Button } from "@heroui/react";
-import { Header } from "./Header";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router";
+import { TaskCreatePage, TaskPage, TasksPage } from "@/pages";
+import { AppLayout } from "@/components";
 
 export const App = () => {
   return (
-    <div className="h-[100vh] w-[100wh]">
-      <Header />
-      <Button>Кнпока</Button>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<AppLayout />}>
+          <Route index element={<TasksPage />} />
+          <Route path="task/:id" element={<TaskPage />} />
+          <Route path="task/create" element={<TaskCreatePage />} />
+        </Route>
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
