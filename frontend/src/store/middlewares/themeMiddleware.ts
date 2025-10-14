@@ -1,9 +1,8 @@
 import { type Middleware } from "@reduxjs/toolkit";
 
+import { LOCAL_STORAGE_KEY } from "../constants";
 import { toggleTheme } from "../reducers/themeSlice";
 import { applyThemeClasses } from "../utils";
-
-import { LOCAL_STORAGE_KEY } from "@/lib";
 
 export const themeMiddleware: Middleware = (store) => (next) => (action) => {
   const result = next(action);

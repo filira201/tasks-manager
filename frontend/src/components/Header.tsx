@@ -10,6 +10,8 @@ import {
 } from "@heroui/react";
 import classNames from "classnames";
 import { useState } from "react";
+import { FaRegMoon } from "react-icons/fa";
+import { LuSunMedium } from "react-icons/lu";
 import { Link, NavLink } from "react-router";
 
 import { toggleTheme, useAppDispatch, useAppSelector } from "@/store";
@@ -69,7 +71,13 @@ export const Header = () => {
           </NavLink>
         </NavbarItem>
         <NavbarItem>
-          <Switch isSelected={!darkMode} onValueChange={handleToggleMode} size="lg" />
+          <Switch
+            isSelected={!darkMode}
+            onValueChange={handleToggleMode}
+            endContent={<LuSunMedium />}
+            startContent={<FaRegMoon />}
+            size="lg"
+          />
         </NavbarItem>
       </NavbarContent>
 

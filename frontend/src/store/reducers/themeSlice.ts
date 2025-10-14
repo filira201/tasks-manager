@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import { LOCAL_STORAGE_KEY } from "../constants";
 import { applyThemeClasses } from "../utils";
-
-import { LOCAL_STORAGE_KEY } from "@/lib";
 
 type ThemeState = {
   darkMode: boolean;
