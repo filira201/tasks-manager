@@ -1,0 +1,150 @@
+{
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Исправить баг при входе",
+      "description": "Ошибка возникает при вводе неправильного пароля",
+      "category": "Bug",
+      "status": "To Do",
+      "priority": "High",
+      "createdAt": "2024-07-01T10:00:00Z"
+    },
+    {
+      "id": "2",
+      "title": "Добавить поддержку темной темы",
+      "category": "Refactor",
+      "status": "In Progress",
+      "priority": "Medium",
+      "description": "",
+      "createdAt": "2024-07-02T10:00:00Z"
+    },
+    {
+      "id": "3",
+      "title": "Обновить документацию по API",
+      "description": "Нужно описать новые эндпоинты",
+      "category": "Documentation",
+      "status": "Done",
+      "priority": "Low",
+      "createdAt": "2024-07-03T10:00:00Z"
+    },
+    {
+      "id": "4",
+      "title": "Рефакторинг компонента Header",
+      "category": "Refactor",
+      "status": "In Progress",
+      "priority": "Medium",
+      "createdAt": "2024-07-04T10:00:00Z"
+    },
+    {
+      "id": "5",
+      "title": "Покрыть тестами компонент TaskItem",
+      "description": "Добавить unit-тесты на отображение",
+      "category": "Test",
+      "status": "To Do",
+      "priority": "Low",
+      "createdAt": "2024-07-05T10:00:00Z"
+    },
+    {
+      "id": "7",
+      "title": "Реализовать фильтрацию задач",
+      "description": "По категориям, приоритету и статусу",
+      "category": "Feature",
+      "status": "To Do",
+      "priority": "High",
+      "createdAt": "2024-07-07T10:00:00Z"
+    },
+    {
+      "id": "8",
+      "title": "Добавить описание проекта в README",
+      "category": "Documentation",
+      "status": "Done",
+      "priority": "Medium",
+      "createdAt": "2024-07-08T10:00:00Z"
+    },
+    {
+      "id": "9",
+      "title": "Рефакторинг страницы авторизации",
+      "description": "Упростить логику обработки ошибок",
+      "category": "Refactor",
+      "status": "In Progress",
+      "priority": "Medium",
+      "createdAt": "2024-07-09T10:00:00Z"
+    },
+    {
+      "id": "10",
+      "title": "Проверить рендер задач при большом списке",
+      "category": "Test",
+      "status": "To Do",
+      "priority": "High",
+      "createdAt": "2024-07-10T10:00:00Z"
+    },
+    {
+      "id": "11",
+      "title": "Исправить баг с неверной датой создания",
+      "description": "Дата всегда отображается как сегодняшняя",
+      "category": "Bug",
+      "status": "In Progress",
+      "priority": "Medium",
+      "createdAt": "2024-07-11T10:00:00Z"
+    },
+    {
+      "id": "12",
+      "title": "Добавить уведомления при изменении задачи",
+      "category": "Feature",
+      "status": "Done",
+      "priority": "Low",
+      "createdAt": "2024-07-12T10:00:00Z"
+    },
+    {
+      "id": "13",
+      "title": "Перевести интерфейс на русский язык",
+      "category": "Documentation",
+      "status": "To Do",
+      "priority": "High",
+      "createdAt": "2024-07-13T10:00:00Z",
+      "description": ""
+    },
+    {
+      "id": "14",
+      "title": "Рефакторинг стора Redux",
+      "description": "Упростить структуру слайсов",
+      "category": "Refactor",
+      "status": "Done",
+      "priority": "Medium",
+      "createdAt": "2024-07-14T10:00:00Z"
+    },
+    {
+      "id": "15",
+      "title": "Добавить e2e тесты",
+      "category": "Test",
+      "status": "In Progress",
+      "priority": "High",
+      "createdAt": "2024-07-15T10:00:00Z"
+    },
+    {
+      "id": "16",
+      "title": "Исправить баг при загрузке аватара",
+      "category": "Bug",
+      "status": "To Do",
+      "priority": "Medium",
+      "createdAt": "2024-07-16T10:00:00Z"
+    },
+    {
+      "id": "18",
+      "title": "Добавить описание компонентов в Storybook",
+      "category": "Documentation",
+      "status": "Done",
+      "priority": "Low",
+      "createdAt": "2024-07-18T10:00:00Z"
+    },
+    {
+      "id": "20",
+      "title": "Покрыть тестами редукторы",
+      "description": "Особенно важно протестировать переключение темы",
+      "category": "Test",
+      "status": "Done",
+      "priority": "Medium",
+      "createdAt": "2024-07-20T10:00:00Z"
+    }
+  ]
+}

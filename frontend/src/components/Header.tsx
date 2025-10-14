@@ -76,7 +76,7 @@ export const Header = () => {
         </NavbarItem>
       </NavbarContent>
 
-      <NavbarMenu className="flex items-center">
+      <NavbarMenu className="flex">
         <NavbarMenuItem>
           <NavLink
             to="/task/new"
