@@ -22,11 +22,6 @@ const BRAND_LINK_PROPS = {
   className: "font-bold text-large transition-colors hover:text-foreground-500",
 } as const;
 
-const getNavLinkClassName = (isActive: boolean) =>
-  classNames("font-medium text-lg transition-colors hover:text-blue-600", {
-    "text-blue-500": isActive,
-  });
-
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const darkMode = useAppSelector((state) => state.theme.darkMode);
@@ -59,7 +54,14 @@ export const Header = () => {
 
       <NavbarContent justify="end">
         <NavbarItem className="hidden sm:block">
-          <NavLink to="/task/new" className={({ isActive }) => getNavLinkClassName(isActive)}>
+          <NavLink
+            to="/task/new"
+            className={({ isActive }) =>
+              classNames("font-medium text-lg transition-colors hover:text-blue-600", {
+                "text-blue-500": isActive,
+              })
+            }
+          >
             Создать задачу
           </NavLink>
         </NavbarItem>
@@ -79,7 +81,11 @@ export const Header = () => {
           <NavLink
             to="/task/new"
             onClick={() => setIsMenuOpen(false)}
-            className={({ isActive }) => getNavLinkClassName(isActive)}
+            className={({ isActive }) =>
+              classNames("font-medium text-lg transition-colors hover:text-blue-600", {
+                "text-blue-500": isActive,
+              })
+            }
           >
             Создать задачу
           </NavLink>
