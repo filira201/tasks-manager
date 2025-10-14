@@ -52,7 +52,7 @@ export const TaskForm = ({
 
   return (
     <Form
-      className="mx-auto w-full flex flex-col gap-4 py-8 px-5 rounded-2xl sm:w-4/5 sm:max-w-3xl"
+      className="mx-auto w-full flex flex-col gap-4 py-8 px-5 rounded-2xl sm:w-4/5 sm:max-w-3xl bg-content1 shadow-lg border border-divider"
       onSubmit={handleSubmit(handleFormSubmit)}
     >
       <InputField name="title" label="Заголовок" placeholder="Введите заголовок" control={control} />
