@@ -20,7 +20,7 @@ export const tasksApi = api.injectEndpoints({
 
     getTaskById: builder.query<Task, string>({
       query: (id) => ({
-        url: `/tasks/${id}`,
+        url: `tasks/${id}`,
         method: "GET",
       }),
       providesTags: (_, __, id) => [{ type: "Task", id }],
@@ -28,7 +28,7 @@ export const tasksApi = api.injectEndpoints({
 
     updateTask: builder.mutation<Task, { taskData: Task; id: string }>({
       query: ({ taskData, id }) => ({
-        url: `/tasks/${id}`,
+        url: `tasks/${id}`,
         method: "PATCH",
         body: taskData,
       }),
@@ -40,7 +40,7 @@ export const tasksApi = api.injectEndpoints({
 
     createTask: builder.mutation<Task, Task>({
       query: (task) => ({
-        url: "/tasks",
+        url: "tasks",
         method: "POST",
         body: task,
       }),
@@ -49,7 +49,7 @@ export const tasksApi = api.injectEndpoints({
 
     deleteTask: builder.mutation<void, string>({
       query: (taskId) => ({
-        url: `/tasks/${taskId}`,
+        url: `tasks/${taskId}`,
         method: "DELETE",
       }),
       invalidatesTags: (_, __, id) => [

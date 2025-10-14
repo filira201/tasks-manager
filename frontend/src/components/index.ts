@@ -14,3 +14,4 @@ export { InputField } from "./InputField";
 export { SelectField } from "./SelectField";
 export { TextareaField } from "./TextareaField";
 export { ErrorMessage } from "./ErrorMessage";
+export { TaskCreatePageContent } from "./TaskCreatePageContent";

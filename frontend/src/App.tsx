@@ -15,7 +15,7 @@ export const App = () => {
             <Route path="/" element={<AppLayout />}>
               <Route index element={<TasksPage />} />
               <Route path="task/:id" element={<TaskPage />} />
-              <Route path="task/create" element={<TaskCreatePage />} />
+              <Route path="task/new" element={<TaskCreatePage />} />
             </Route>
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
