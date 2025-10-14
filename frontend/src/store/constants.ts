@@ -1,1 +1,1 @@
-export const LOCAL_STORAGE_KEY = "darkModeKey";
+export const THEME_STORAGE_KEY = "theme";

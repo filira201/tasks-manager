@@ -1,6 +1,6 @@
 import { type Middleware } from "@reduxjs/toolkit";
 
-import { LOCAL_STORAGE_KEY } from "../constants";
+import { THEME_STORAGE_KEY } from "../constants";
 import { toggleTheme } from "../reducers/themeSlice";
 import { applyThemeClasses } from "../utils";
 
@@ -12,7 +12,7 @@ export const themeMiddleware: Middleware = (store) => (next) => (action) => {
     const state = store.getState();
 
     try {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state.theme.darkMode));
+      localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(state.theme.darkMode));
       // Применяем классы к body после изменения темы
       applyThemeClasses(state.theme.darkMode);
     } catch (error) {

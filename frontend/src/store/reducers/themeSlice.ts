@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { LOCAL_STORAGE_KEY } from "../constants";
-import { applyThemeClasses } from "../utils";
+import { THEME_STORAGE_KEY } from "../constants";
 
 type ThemeState = {
   darkMode: boolean;
@@ -9,16 +8,23 @@ type ThemeState = {
 
 const getInitialTheme = (): boolean => {
   try {
-    const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
-    const darkMode = saved ? JSON.parse(saved) : false;
+    const saved = localStorage.getItem(THEME_STORAGE_KEY);
 
-    // Применяем классы при инициализации
-    applyThemeClasses(darkMode);
+    if (saved === null) {
+      return false;
+    }
 
-    return darkMode;
+    const parsed = JSON.parse(saved);
+
+    if (typeof parsed !== "boolean") {
+      console.warn("Invalid theme value in localStorage, expected boolean");
+
+      return false;
+    }
+
+    return parsed;
   } catch (error) {
-    console.warn("Error with getInitialTheme " + error);
-    applyThemeClasses(false); // Применяем светлую тему по умолчанию
+    console.warn("Error reading theme from localStorage:", error);
 
     return false;
   }
