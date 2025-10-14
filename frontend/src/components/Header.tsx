@@ -18,7 +18,7 @@ import { toggleTheme, useAppDispatch, useAppSelector } from "@/store";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { darkMode } = useAppSelector((state) => state.theme);
+  const darkMode = useAppSelector((state) => state.theme.darkMode);
   const dispatch = useAppDispatch();
 
   const handleMenuClose = () => {
