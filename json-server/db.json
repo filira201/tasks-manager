@@ -45,21 +45,13 @@
       "createdAt": "2024-07-05T10:00:00Z"
     },
     {
-      "id": "7",
-      "title": "Реализовать фильтрацию задач",
-      "description": "По категориям, приоритету и статусу",
-      "category": "Feature",
-      "status": "To Do",
-      "priority": "High",
-      "createdAt": "2024-07-07T10:00:00Z"
-    },
-    {
       "id": "8",
       "title": "Добавить описание проекта в README",
-      "category": "Documentation",
+      "category": "Refactor",
       "status": "Done",
       "priority": "Medium",
-      "createdAt": "2024-07-08T10:00:00Z"
+      "createdAt": "2024-07-08T10:00:00Z",
+      "description": "))))))))"
     },
     {
       "id": "9",

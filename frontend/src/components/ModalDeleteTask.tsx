@@ -45,21 +45,10 @@ export const ModalDeleteTask = ({ isOpen, onOpenChange, onClose, taskId }: Props
               </ModalBody>
               <ModalFooter>
                 <div className="w-full grid grid-cols-1 gap-4 mt-5 sm:grid-cols-2 sm:gap-6">
-                  <Button
-                    color="default"
-                    variant="flat"
-                    onPress={onClose}
-                    fullWidth
-                    className="text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
-                  >
+                  <Button color="default" variant="flat" onPress={onClose} fullWidth className="text-base">
                     Отмена
                   </Button>
-                  <Button
-                    color="danger"
-                    variant="flat"
-                    onPress={handleDeleteTask}
-                    className="text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
-                  >
+                  <Button color="danger" variant="flat" onPress={handleDeleteTask} className="text-base">
                     Удалить
                   </Button>
                 </div>

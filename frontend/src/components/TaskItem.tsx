@@ -22,14 +22,7 @@ export const TaskItem = ({ task }: Props) => {
             <h3 className="text-xl font-medium line-clamp-1" title={task.title}>
               {task.title}
             </h3>
-            <Button
-              isIconOnly
-              aria-label="Удалить задачу"
-              color="danger"
-              variant="flat"
-              className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
-              onPress={onOpen}
-            >
+            <Button isIconOnly aria-label="Удалить задачу" color="danger" variant="flat" onPress={onOpen}>
               <RiDeleteBinLine />
             </Button>
           </div>
@@ -59,7 +52,6 @@ export const TaskItem = ({ task }: Props) => {
             variant="flat"
             endContent={<CiEdit />}
             fullWidth
-            className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
           >
             Редактировать
           </Button>
