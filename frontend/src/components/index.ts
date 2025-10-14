@@ -1,3 +1,10 @@
 export { AppLayout } from "./AppLayout";
 export { Header } from "./Header";
 export { Footer } from "./Footer";
+export { TaskPagesContent } from "./TaskPagesContent";
+export { Loader } from "./Loader";
+export { QueryError } from "./QueryError";
+export { TaskList } from "./TaskList";
+export { TaskItem } from "./TaskItem";
+export { ModalDeleteTask } from "./ModalDeleteTask";
+export { MyPagination } from "./MyPagination";

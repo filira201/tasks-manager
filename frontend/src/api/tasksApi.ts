@@ -5,14 +5,17 @@ export const tasksApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getAllTasks: builder.query<TaskData, { page: number; perPage: number }>({
       query: ({ page, perPage }) => ({
-        url: "/tasks",
+        url: "tasks",
         method: "GET",
         params: {
           _page: page,
           _per_page: perPage,
         },
       }),
-      providesTags: ["Tasks"],
+      providesTags: (result) =>
+        result
+          ? [...result.data.map(({ id }) => ({ type: "Task" as const, id })), { type: "Tasks", id: "LIST" }]
+          : [{ type: "Tasks", id: "LIST" }],
     }),
 
     getTaskById: builder.query<Task, string>({
@@ -20,7 +23,7 @@ export const tasksApi = api.injectEndpoints({
         url: `/tasks/${id}`,
         method: "GET",
       }),
-      providesTags: ["Tasks"],
+      providesTags: (_, __, id) => [{ type: "Task", id }],
     }),
 
     updateTask: builder.mutation<Task, { taskData: Task; id: string }>({
@@ -29,7 +32,10 @@ export const tasksApi = api.injectEndpoints({
         method: "PATCH",
         body: taskData,
       }),
-      invalidatesTags: ["Tasks"],
+      invalidatesTags: (_, __, { id }) => [
+        { type: "Task", id },
+        { type: "Tasks", id: "LIST" },
+      ],
     }),
 
     createTask: builder.mutation<Task, Task>({
@@ -38,7 +44,7 @@ export const tasksApi = api.injectEndpoints({
         method: "POST",
         body: task,
       }),
-      invalidatesTags: ["Tasks"],
+      invalidatesTags: [{ type: "Tasks", id: "LIST" }],
     }),
 
     deleteTask: builder.mutation<void, string>({
@@ -46,7 +52,10 @@ export const tasksApi = api.injectEndpoints({
         url: `/tasks/${taskId}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Tasks"],
+      invalidatesTags: (_, __, id) => [
+        { type: "Task", id },
+        { type: "Tasks", id: "LIST" },
+      ],
     }),
   }),
 });

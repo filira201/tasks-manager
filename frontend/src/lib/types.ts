@@ -17,7 +17,7 @@ export type Task = {
   category: TaskCategory;
   status: TaskStatus;
   priority: TaskPriority;
-  createdAt: Date;
+  createdAt: string;
 };
 
 export type TaskCategory = (typeof TASK_CATEGORY)[number];
