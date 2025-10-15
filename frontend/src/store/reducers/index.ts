@@ -1,1 +1,0 @@
-export { toggleTheme } from "./themeSlice";
