@@ -1,4 +1,5 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router";
+import { useEffect } from "react";
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router";
 
 import { AppLayout } from "../layout";
 
@@ -6,9 +7,25 @@ import { TaskPage } from "@/pages/task";
 import { TaskCreatePage } from "@/pages/taskCreate";
 import { TasksPage } from "@/pages/tasks";
 
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    console.log(pathname);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [pathname]);
+
+  return null;
+};
+
 export const AppRouter = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<AppLayout />}>
           <Route index element={<TasksPage />} />

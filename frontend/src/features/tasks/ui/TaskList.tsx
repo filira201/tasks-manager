@@ -1,4 +1,5 @@
-import { TaskItem } from "@/entities/task";
+import { TaskItem } from "./TaskItem";
+
 import type { Task } from "@/shared/lib/types";
 
 type Props = {
