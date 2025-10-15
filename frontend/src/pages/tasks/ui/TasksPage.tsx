@@ -1,4 +1,4 @@
-import { TasksPageContent } from "@/widgets/TasksPageContent";
+import { TasksPageContent } from "@/widgets/Tasks";
 
 export const TasksPage = () => {
   return (

@@ -1,4 +1,4 @@
-import { TaskCreatePageContent } from "@/widgets/TaskCreatePageContent";
+import { TaskCreatePageContent } from "@/widgets/TaskCreate";
 
 export const TaskCreatePage = () => {
   return (

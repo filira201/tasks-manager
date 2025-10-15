@@ -1,7 +1,8 @@
 import { Outlet } from "react-router";
 
+import { Header } from "./Header";
+
 import { Footer } from "@/shared/ui/Footer";
-import { Header } from "@/shared/ui/Header";
 
 export const AppLayout = () => {
   return (

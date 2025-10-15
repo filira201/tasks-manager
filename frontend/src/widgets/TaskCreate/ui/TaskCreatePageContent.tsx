@@ -1,8 +1,7 @@
 import { addToast } from "@heroui/react";
 import { useNavigate } from "react-router";
 
-import { useCreateTaskMutation } from "@/features/tasks";
-import { TaskForm } from "@/features/tasks/ui/TaskForm";
+import { TaskForm, useCreateTaskMutation } from "@/features/tasks";
 import type { Task } from "@/shared/lib/types";
 
 export const TaskCreatePageContent = () => {

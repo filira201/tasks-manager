@@ -3,7 +3,7 @@ import { CiEdit } from "react-icons/ci";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { useNavigate } from "react-router";
 
-import { ModalDeleteTask } from "@/features/tasks/ui/ModalDeleteTask";
+import { ModalDeleteTask } from "@/features/tasks";
 import { categoryColor, priorityColor, statusColor } from "@/shared/lib/constants";
 import type { Task } from "@/shared/lib/types";
 import { formatToClientDate } from "@/shared/lib/utils";

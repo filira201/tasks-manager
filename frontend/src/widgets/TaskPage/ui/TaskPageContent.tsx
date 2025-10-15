@@ -1,8 +1,7 @@
 import { addToast } from "@heroui/react";
 import { useNavigate, useParams } from "react-router";
 
-import { useGetTaskByIdQuery, useUpdateTaskMutation } from "@/features/tasks";
-import { TaskForm } from "@/features/tasks/ui/TaskForm";
+import { TaskForm, useGetTaskByIdQuery, useUpdateTaskMutation } from "@/features/tasks";
 import type { Task } from "@/shared/lib/types";
 import { Loader } from "@/shared/ui/Loader";
 import { QueryError } from "@/shared/ui/QueryError";
