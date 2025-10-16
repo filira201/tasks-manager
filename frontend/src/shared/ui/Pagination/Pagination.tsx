@@ -1,4 +1,5 @@
 import { Pagination as HeroUIPagination } from "@heroui/react";
+import { memo } from "react";
 
 type Props = {
   currentPage: number;
@@ -6,7 +7,7 @@ type Props = {
   handlePageChange: (page: number) => void;
 };
 
-export const Pagination = ({ currentPage, total, handlePageChange }: Props) => {
+export const Pagination = memo<Props>(({ currentPage, total, handlePageChange }) => {
   return (
     <HeroUIPagination
       className="cursor-pointer"
@@ -20,4 +21,4 @@ export const Pagination = ({ currentPage, total, handlePageChange }: Props) => {
       isCompact
     />
   );
-};
+});

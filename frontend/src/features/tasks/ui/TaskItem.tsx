@@ -1,4 +1,5 @@
 import { Button, Card, CardBody, CardFooter, CardHeader, Chip, useDisclosure } from "@heroui/react";
+import { memo, useCallback } from "react";
 import { CiEdit } from "react-icons/ci";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { useNavigate } from "react-router";
@@ -12,9 +13,13 @@ type Props = {
   task: Task;
 };
 
-export const TaskItem = ({ task }: Props) => {
+export const TaskItem = memo(({ task }: Props) => {
   const navigate = useNavigate();
   const { isOpen, onOpenChange, onOpen, onClose } = useDisclosure();
+
+  const handleNavigateToTask = useCallback(() => {
+    navigate(`/task/${task.id}`);
+  }, [navigate, task.id]);
 
   return (
     <>
@@ -48,7 +53,7 @@ export const TaskItem = ({ task }: Props) => {
           <p className="font-base text-default-600 text-lg">Создана: {formatToClientDate(task.createdAt)}</p>
 
           <Button
-            onPress={() => navigate(`/task/${task.id}`)}
+            onPress={handleNavigateToTask}
             color="primary"
             size="md"
             variant="flat"
@@ -62,4 +67,4 @@ export const TaskItem = ({ task }: Props) => {
       <ModalDeleteTask isOpen={isOpen} onOpenChange={onOpenChange} onClose={onClose} taskId={task.id} />
     </>
   );
-};
+});

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useSearchParams } from "react-router";
 
 import { TaskList, useGetAllTasksQuery } from "@/features/tasks";
@@ -22,26 +22,35 @@ export const TasksPageContent = () => {
     });
   }, [currentPage]);
 
+  const handlePageChange = useCallback(
+    (page: number) => {
+      if (data?.pages === undefined) {
+        return;
+      }
+
+      if (page < 1 || page > data?.pages) {
+        return;
+      }
+
+      searchParams.set("page", page.toString());
+      setSearchParams(searchParams);
+    },
+    [searchParams, setSearchParams, data?.pages]
+  );
+
   if (isLoading || isFetching) {
     return <Loader />;
   }
 
+  const handleRetry = () => refetch();
+
   if (error) {
-    return <QueryError error={error} onRetry={() => refetch()} />;
+    return <QueryError error={error} onRetry={handleRetry} />;
   }
 
   if (!data || !data.data || !data.data.length) {
     return <h2 className="text-xl font-medium text-center">У вас пока что нет задач</h2>;
   }
-
-  const handlePageChange = (page: number) => {
-    if (page < 1 || page > data.pages) {
-      return;
-    }
-
-    searchParams.set("page", page.toString());
-    setSearchParams(searchParams);
-  };
 
   return (
     <>

@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 import { TaskItem } from "./TaskItem";
 
 import type { Task } from "@/shared/lib/types";
@@ -6,7 +8,7 @@ type Props = {
   tasks: Task[];
 };
 
-export const TaskList = ({ tasks }: Props) => {
+export const TaskList = memo(({ tasks }: Props) => {
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -16,4 +18,4 @@ export const TaskList = ({ tasks }: Props) => {
       </div>
     </>
   );
-};
+});

@@ -9,7 +9,7 @@ import {
   Switch,
 } from "@heroui/react";
 import classNames from "classnames";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { FaRegMoon } from "react-icons/fa";
 import { LuSunMedium } from "react-icons/lu";
 import { Link, NavLink } from "react-router";
@@ -28,13 +28,13 @@ export const Header = () => {
   const darkMode = useAppSelector((state) => state.theme.darkMode);
   const dispatch = useAppDispatch();
 
-  const handleMenuClose = () => {
+  const handleMenuClose = useCallback(() => {
     setIsMenuOpen(false);
-  };
+  }, []);
 
-  const handleToggleMode = () => {
+  const handleToggleMode = useCallback(() => {
     dispatch(toggleTheme());
-  };
+  }, [dispatch]);
 
   return (
     <Navbar disableAnimation isBordered isBlurred={false} isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
@@ -81,7 +81,7 @@ export const Header = () => {
         <NavbarMenuItem>
           <NavLink
             to="/task/new"
-            onClick={() => setIsMenuOpen(false)}
+            onClick={handleMenuClose}
             className={({ isActive }) =>
               classNames("font-medium text-lg transition-colors hover:text-blue-600", {
                 "text-blue-500": isActive,
