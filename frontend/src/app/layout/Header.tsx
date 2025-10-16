@@ -6,16 +6,12 @@ import {
   NavbarMenu,
   NavbarMenuItem,
   NavbarMenuToggle,
-  Switch,
 } from "@heroui/react";
 import classNames from "classnames";
 import { useCallback, useState } from "react";
-import { FaRegMoon } from "react-icons/fa";
-import { LuSunMedium } from "react-icons/lu";
 import { Link, NavLink } from "react-router";
 
-import { toggleTheme } from "@/features/theme";
-import { useAppDispatch, useAppSelector } from "@/shared/lib/hooks";
+import { ThemeSwitch } from "@/features/theme";
 
 const BRAND_LINK_PROPS = {
   to: "/",
@@ -25,16 +21,10 @@ const BRAND_LINK_PROPS = {
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const darkMode = useAppSelector((state) => state.theme.darkMode);
-  const dispatch = useAppDispatch();
 
   const handleMenuClose = useCallback(() => {
     setIsMenuOpen(false);
   }, []);
-
-  const handleToggleMode = useCallback(() => {
-    dispatch(toggleTheme());
-  }, [dispatch]);
 
   return (
     <Navbar disableAnimation isBordered isBlurred={false} isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
@@ -67,13 +57,7 @@ export const Header = () => {
           </NavLink>
         </NavbarItem>
         <NavbarItem>
-          <Switch
-            isSelected={!darkMode}
-            onValueChange={handleToggleMode}
-            endContent={<LuSunMedium />}
-            startContent={<FaRegMoon />}
-            size="lg"
-          />
+          <ThemeSwitch />
         </NavbarItem>
       </NavbarContent>
 
