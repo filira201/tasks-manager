@@ -5,7 +5,7 @@
       "title": "Исправить баг при входе",
       "description": "Ошибка возникает при вводе неправильного пароля",
       "category": "Bug",
-      "status": "To Do",
+      "status": "Done",
       "priority": "High",
       "createdAt": "2024-07-01T10:00:00Z"
     },
