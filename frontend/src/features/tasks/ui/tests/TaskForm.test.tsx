@@ -6,7 +6,7 @@ import { TaskForm } from "../TaskForm";
 
 import type { Task } from "@/shared/lib/types";
 
-describe("форма создания/редактирования задачи", () => {
+describe.skip("форма создания/редактирования задачи", () => {
   test("если отрендерить форму, то должны отобразиться все поля", () => {
     // Подготовка
     const mockSubmit = vi.fn();

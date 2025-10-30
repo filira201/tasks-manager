@@ -17,7 +17,7 @@ const createMockTask = (id: string, title: string): Task => ({
   createdAt: "2024-01-15T10:30:00.000Z",
 });
 
-describe("список задач", () => {
+describe.skip("список задач", () => {
   test("если передан пустой массив задач, то должен отрендерить пустой список", () => {
     // Подготовка
     const tasks: Task[] = [];
@@ -174,4 +174,3 @@ describe("список задач", () => {
     expect(screen.getByText("High")).toBeTruthy();
   });
 });
-

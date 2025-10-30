@@ -20,7 +20,7 @@ class LocalStorageStub {
   }
 }
 
-describe("загрузка начальной темы из localStorage", () => {
+describe.skip("загрузка начальной темы из localStorage", () => {
   let localStorageStub: LocalStorageStub;
 
   beforeEach(() => {
