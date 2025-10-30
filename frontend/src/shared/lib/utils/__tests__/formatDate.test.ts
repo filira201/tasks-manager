@@ -2,7 +2,7 @@ import { describe, expect, test } from "vitest";
 
 import { formatToClientDate } from "../formatDate";
 
-describe("форматирование даты для клиента", () => {
+describe("форматирование даты для клиента (formatToClientDate)", () => {
   test("если дата не передана, то функция должна вернуть пустую строку", () => {
     // Подготовка, её нет, потому что функция не принимает аргументов
 
