@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router";
+import { Navigate, Route, Routes, useLocation } from "react-router";
 
 import { AppLayout } from "../layout";
 
@@ -22,7 +22,7 @@ const ScrollToTop = () => {
 
 export const AppRouter = () => {
   return (
-    <BrowserRouter>
+    <>
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<AppLayout />}>
@@ -32,6 +32,6 @@ export const AppRouter = () => {
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </BrowserRouter>
+    </>
   );
 };
