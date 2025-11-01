@@ -6,6 +6,8 @@ import { AppRouter } from "../AppRouter";
 
 import { Providers } from "@/app/providers";
 
+//TODO: Мб протестировать ScroolToTop?
+
 beforeEach(() => {
   // Мокаем window.scrollTo, так как jsdom не реализует этот метод
   // Пока что это просто мок
