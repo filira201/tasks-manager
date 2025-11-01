@@ -26,10 +26,10 @@ export const TaskItem = memo(({ task }: Props) => {
       <Card className="w-full min-h-64">
         <CardHeader>
           <div className="w-full flex justify-between gap-1 items-center">
-            <h3 className="text-xl font-medium line-clamp-1" title={task.title}>
+            <h3 data-testid="task-item-title" className="text-xl font-medium line-clamp-1" title={task.title}>
               {task.title}
             </h3>
-            <Button isIconOnly aria-label="Удалить задачу" color="danger" variant="flat" onPress={onOpen}>
+            <Button data-testid="task-item-delete-button" isIconOnly aria-label="Удалить задачу" color="danger" variant="flat" onPress={onOpen}>
               <RiDeleteBinLine />
             </Button>
           </div>
@@ -37,7 +37,11 @@ export const TaskItem = memo(({ task }: Props) => {
 
         <CardBody>
           {task.description && (
-            <p className="text-lg text-default-500 line-clamp-2" title={task.description}>
+            <p
+              data-testid="task-item-description"
+              className="text-lg text-default-500 line-clamp-2"
+              title={task.description}
+            >
               {task.description}
             </p>
           )}
@@ -45,14 +49,23 @@ export const TaskItem = memo(({ task }: Props) => {
 
         <CardFooter className="flex flex-col gap-4 items-start">
           <div className="flex gap-2 flex-wrap">
-            <Chip color={categoryColor[task.category]}>{task.category}</Chip>
-            <Chip color={statusColor[task.status]}>{task.status}</Chip>
-            <Chip color={priorityColor[task.priority]}>{task.priority}</Chip>
+            <Chip data-testid="task-item-category" color={categoryColor[task.category]}>
+              {task.category}
+            </Chip>
+            <Chip data-testid="task-item-status" color={statusColor[task.status]}>
+              {task.status}
+            </Chip>
+            <Chip data-testid="task-item-priority" color={priorityColor[task.priority]}>
+              {task.priority}
+            </Chip>
           </div>
 
-          <p className="font-base text-default-600 text-lg">Создана: {formatToClientDate(task.createdAt)}</p>
+          <p data-testid="task-item-created-at" className="font-base text-default-600 text-lg">
+            Создана: {formatToClientDate(task.createdAt)}
+          </p>
 
           <Button
+            data-testid="task-item-edit-button"
             onPress={handleNavigateToTask}
             color="primary"
             size="md"

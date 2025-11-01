@@ -38,17 +38,17 @@ export const ModalDeleteTask = ({ isOpen, onOpenChange, onClose, taskId }: Props
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                <h3 className="text-xl font-medium">Удалить задачу?</h3>
+                <h3 data-testid="modal-delete-task-title" className="text-xl font-medium">Удалить задачу?</h3>
               </ModalHeader>
               <ModalBody>
                 <p>Вы уверены, что хотите удалить эту задачу? Это действие необратимо.</p>
               </ModalBody>
               <ModalFooter>
                 <div className="w-full grid grid-cols-1 gap-4 mt-5 sm:grid-cols-2 sm:gap-6">
-                  <Button color="default" variant="flat" onPress={onClose} fullWidth className="text-base">
+                  <Button data-testid="modal-delete-task-cancel-button" color="default" variant="flat" onPress={onClose} fullWidth className="text-base">
                     Отмена
                   </Button>
-                  <Button color="danger" variant="flat" onPress={handleDeleteTask} className="text-base">
+                  <Button data-testid="modal-delete-task-delete-button" color="danger" variant="flat" onPress={handleDeleteTask} className="text-base">
                     Удалить
                   </Button>
                 </div>

@@ -1,262 +1,183 @@
-import { render, screen } from "@testing-library/react";
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { MemoryRouter } from "react-router";
-import { describe, expect, test } from "vitest";
+import { afterEach, describe, expect, test, vi } from "vitest";
 
 import { TaskItem } from "../TaskItem";
 
+import { Providers } from "@/app/providers";
 import type { Task } from "@/shared/lib/types";
+import { formatToClientDate } from "@/shared/lib/utils";
+
+// Мокаем API хуки
+const mockDeleteTask = vi.fn();
+
+vi.mock("@/features/tasks/api/tasksApi", () => ({
+  useDeleteTaskMutation: vi.fn(() => [mockDeleteTask, { isLoading: false }]),
+}));
 
 // Мок-данные
-const mockTask: Task = {
-  id: "test-task-1",
-  title: "Тестовая задача",
-  description: "Это описание тестовой задачи",
+const createMockTask = (id: string, title: string, description?: string): Task => ({
+  id,
+  title,
+  description,
   category: "Feature",
   status: "To Do",
-  priority: "High",
+  priority: "Medium",
   createdAt: "2024-01-15T10:30:00.000Z",
+});
+
+const renderTask = (task: Task) => {
+  render(
+    <MemoryRouter>
+      <Providers>
+        <TaskItem task={task} />
+      </Providers>
+    </MemoryRouter>
+  );
 };
 
-describe.skip("тестирование отображения отдельной карточки задачи", () => {
-  test("если передана задача, то должен отобразиться заголовок", () => {
-    // Действие
-    const { container } = render(
-      <MemoryRouter>
-        <TaskItem task={mockTask} />
-      </MemoryRouter>
-    );
-    screen.debug(container);
+afterEach(() => {
+  cleanup(); // очищаем DOM после каждого теста
+  vi.clearAllMocks(); // очищаем все моки после каждого теста
+});
 
-    // Проверка
-    expect(screen.getByText("Тестовая задача")).toBeTruthy();
+describe("тестирование отображения отдельной карточки задачи", () => {
+  test("если передана задача, то должен отобразиться заголовок с текстом заголовка задачи", () => {
+    const task = createMockTask("1", "Тестовая задача", "Описание тестовой задачи");
+
+    renderTask(task);
+
+    const title = screen.getByTestId("task-item-title");
+    expect(title).toBeInTheDocument();
+    expect(title).toHaveTextContent(task.title);
   });
 
-  test("если у задачи есть описание, то оно должно отобразиться", () => {
-    // Подготовка
-    const task = mockTask;
+  test("если у задачи есть описание, то оно должно отобразиться с текстом описания задачи", () => {
+    const task = createMockTask("1", "Тестовая задача", "Описание тестовой задачи");
 
-    // Действие
-    render(
-      <MemoryRouter>
-        <TaskItem task={task} />
-      </MemoryRouter>
-    );
+    renderTask(task);
 
-    // Проверка
-    expect(screen.getByText("Это описание тестовой задачи")).toBeTruthy();
+    const description = screen.getByTestId("task-item-description");
+    expect(description).toBeInTheDocument();
+    expect(description).toHaveTextContent(task.description!);
   });
 
-  test("если у задачи нет описания, то параграф описания не должен отображаться", () => {
-    // Подготовка
-    const taskWithoutDescription = { ...mockTask, description: undefined };
+  test("если у задачи нет описания, то оно не должно отображаться", () => {
+    const task = createMockTask("1", "Тестовая задача");
 
-    // Действие
-    const { container } = render(
-      <MemoryRouter>
-        <TaskItem task={taskWithoutDescription} />
-      </MemoryRouter>
-    );
+    renderTask(task);
 
-    // Проверка - параграф с описанием не существует
-    const description = container.querySelector(".text-default-500");
-    expect(description).toBeNull();
+    const description = screen.queryByTestId("task-item-description");
+    expect(description).not.toBeInTheDocument();
   });
 
-  test("если передана задача, то должны отобразиться категория, статус и приоритет", () => {
-    // Подготовка
-    const task = mockTask;
+  test("если передана задача, то должны отобразиться категории, статус и приоритет задачи", () => {
+    const task = createMockTask("1", "Тестовая задача", "Описание тестовой задачи");
 
-    // Действие
-    render(
-      <MemoryRouter>
-        <TaskItem task={task} />
-      </MemoryRouter>
-    );
+    renderTask(task);
 
-    // Проверка
-    expect(screen.getByText("Feature")).toBeTruthy();
-    expect(screen.getByText("To Do")).toBeTruthy();
-    expect(screen.getByText("High")).toBeTruthy();
+    const category = screen.getByTestId("task-item-category");
+    expect(category).toBeInTheDocument();
+    expect(category).toHaveTextContent(task.category);
+
+    const status = screen.getByTestId("task-item-status");
+    expect(status).toBeInTheDocument();
+    expect(status).toHaveTextContent(task.status);
+
+    const priority = screen.getByTestId("task-item-priority");
+    expect(priority).toBeInTheDocument();
+    expect(priority).toHaveTextContent(task.priority);
   });
 
-  test("если передана задача, то должна отобразиться дата создания", () => {
-    // Подготовка
-    const task = mockTask;
+  test("если передана задача, то должна отобразиться дата создания задачи", () => {
+    const task = createMockTask("1", "Тестовая задача", "Описание тестовой задачи");
+    const formattedDate = formatToClientDate(task.createdAt);
 
-    // Действие
-    render(
-      <MemoryRouter>
-        <TaskItem task={task} />
-      </MemoryRouter>
-    );
+    renderTask(task);
 
-    // Проверка - есть текст "Создана:"
-    expect(screen.getByText(/Создана:/)).toBeTruthy();
+    const createdAt = screen.getByTestId("task-item-created-at");
+    expect(createdAt).toBeInTheDocument();
+    expect(createdAt).toHaveTextContent(formattedDate);
   });
 
-  test("если отрендерить карточку задачи, то должна быть кнопка редактирования", () => {
-    // Подготовка
-    const task = mockTask;
+  test("если передана задача, то должна отобразиться кнопка редактирования задачи с текстом 'Редактировать'", () => {
+    const task = createMockTask("1", "Тестовая задача", "Описание тестовой задачи");
 
-    // Действие
-    render(
-      <MemoryRouter>
-        <TaskItem task={task} />
-      </MemoryRouter>
-    );
+    renderTask(task);
 
-    // Проверка
-    const editButton = screen.getByText("Редактировать");
-    expect(editButton).toBeTruthy();
+    const editButton = screen.getByTestId("task-item-edit-button");
+    expect(editButton).toBeInTheDocument();
+    expect(editButton).toHaveTextContent("Редактировать");
   });
 
-  test("если отрендерить карточку задачи, то должна быть кнопка удаления", () => {
-    // Подготовка
-    const task = mockTask;
+  test("если передана задача, то должна отобразиться кнопка удаления задачи с атрибутом aria-label", () => {
+    const task = createMockTask("1", "Тестовая задача", "Описание тестовой задачи");
 
-    // Действие
-    render(
-      <MemoryRouter>
-        <TaskItem task={task} />
-      </MemoryRouter>
-    );
+    renderTask(task);
 
-    // Проверка
-    const deleteButton = screen.getByLabelText("Удалить задачу");
-    expect(deleteButton).toBeTruthy();
+    const deleteButton = screen.getByTestId("task-item-delete-button");
+    expect(deleteButton).toBeInTheDocument();
+    expect(deleteButton).toHaveAttribute("aria-label", "Удалить задачу");
   });
+});
 
-  test("если кликнуть на кнопку удаления, то должно открыться модальное окно", async () => {
-    // Подготовка
+describe("тестирование удаления задачи", () => {
+  test("если кликнуть на кнопку удаления, то должна открыться модалка с подтверждением", async () => {
     const user = userEvent.setup();
-    const task = mockTask;
+    const task = createMockTask("1", "Тестовая задача", "Описание тестовой задачи");
 
-    // Действие
-    render(
-      <MemoryRouter>
-        <TaskItem task={task} />
-      </MemoryRouter>
-    );
+    renderTask(task);
 
-    const deleteButton = screen.getByLabelText("Удалить задачу");
+    const deleteButton = screen.getByTestId("task-item-delete-button");
     await user.click(deleteButton);
 
-    // Проверка - модальное окно появилось
-    const modal = await screen.findByRole("dialog");
-    expect(modal).toBeTruthy();
+    const modalTitle = screen.getByTestId("modal-delete-task-title");
+    expect(modalTitle).toBeInTheDocument();
   });
 
-  test("если заголовок длинный, то должен применяться класс line-clamp-1", () => {
-    // Подготовка
-    const taskWithLongTitle = {
-      ...mockTask,
-      title: "Очень длинный заголовок задачи который должен быть обрезан",
-    };
+  test("если кликнуть на кнопку 'Отмена' в модалке, то модалка должна закрыться без удаления", async () => {
+    const user = userEvent.setup();
+    const task = createMockTask("1", "Тестовая задача", "Описание тестовой задачи");
+    renderTask(task);
 
-    // Действие
-    const { container } = render(
-      <MemoryRouter>
-        <TaskItem task={taskWithLongTitle} />
-      </MemoryRouter>
-    );
+    const deleteButton = screen.getByTestId("task-item-delete-button");
+    await user.click(deleteButton);
 
-    // Проверка
-    const titleElement = container.querySelector(".line-clamp-1");
-    expect(titleElement).toBeTruthy();
-    expect(titleElement?.textContent).toContain("Очень длинный заголовок");
+    const modalTitle = screen.getByTestId("modal-delete-task-title");
+    expect(modalTitle).toBeInTheDocument();
+
+    const cancelButton = screen.getByTestId("modal-delete-task-cancel-button");
+    await user.click(cancelButton);
+
+    await waitFor(() => {
+      expect(modalTitle).not.toBeInTheDocument();
+    });
+
+    expect(mockDeleteTask).not.toHaveBeenCalled();
   });
 
-  test("если описание длинное, то должен применяться класс line-clamp-2", () => {
-    // Подготовка
-    const taskWithLongDescription = {
-      ...mockTask,
-      description:
-        "Очень длинное описание задачи которое должно быть обрезано до двух строк для улучшения отображения в списке задач",
-    };
+  test("если кликнуть на кнопку 'Удалить' в модалке, то должна вызваться функция удаления задачи с правильным id", async () => {
+    const user = userEvent.setup();
+    const task = createMockTask("test-task-123", "Тестовая задача", "Описание тестовой задачи");
+    renderTask(task);
 
-    // Действие
-    const { container } = render(
-      <MemoryRouter>
-        <TaskItem task={taskWithLongDescription} />
-      </MemoryRouter>
-    );
+    // Мокаем успешное удаление
+    mockDeleteTask.mockReturnValue({
+      unwrap: vi.fn().mockRejectedValue(undefined),
+    });
 
-    // Проверка
-    const descriptionElement = container.querySelector(".line-clamp-2");
-    expect(descriptionElement).toBeTruthy();
-  });
+    const deleteButton = screen.getByTestId("task-item-delete-button");
+    await user.click(deleteButton);
 
-  test("если отрендерить карточку, то она должна иметь минимальную высоту", () => {
-    // Подготовка
-    const task = mockTask;
+    const modalTitle = screen.getByTestId("modal-delete-task-title");
+    expect(modalTitle).toBeInTheDocument();
 
-    // Действие
-    const { container } = render(
-      <MemoryRouter>
-        <TaskItem task={task} />
-      </MemoryRouter>
-    );
+    const confirmButton = screen.getByTestId("modal-delete-task-delete-button");
+    await user.click(confirmButton);
 
-    // Проверка
-    const card = container.querySelector(".min-h-64");
-    expect(card).toBeTruthy();
-  });
-
-  test("если у задачи нет описания, то карточка всё равно должна отображаться корректно", () => {
-    // Подготовка
-    const taskWithoutDesc: Task = {
-      id: "2",
-      title: "Задача без описания",
-      category: "Bug",
-      status: "Done",
-      priority: "Low",
-      createdAt: "2024-02-20T12:00:00.000Z",
-    };
-
-    // Действие
-    render(
-      <MemoryRouter>
-        <TaskItem task={taskWithoutDesc} />
-      </MemoryRouter>
-    );
-
-    // Проверка
-    expect(screen.getByText("Задача без описания")).toBeTruthy();
-    expect(screen.getByText("Bug")).toBeTruthy();
-    expect(screen.getByText("Done")).toBeTruthy();
-    expect(screen.getByText("Low")).toBeTruthy();
-  });
-
-  test("если кнопка удаления, то она должна иметь цвет danger", () => {
-    // Подготовка
-    const task = mockTask;
-
-    // Действие
-    render(
-      <MemoryRouter>
-        <TaskItem task={task} />
-      </MemoryRouter>
-    );
-
-    // Проверка
-    const deleteButton = screen.getByLabelText("Удалить задачу");
-    expect(deleteButton.getAttribute("data-color")).toBe("danger");
-  });
-
-  test("если кнопка редактирования, то она должна иметь цвет primary", () => {
-    // Подготовка
-    const task = mockTask;
-
-    // Действие
-    render(
-      <MemoryRouter>
-        <TaskItem task={task} />
-      </MemoryRouter>
-    );
-
-    // Проверка
-    const editButton = screen.getByText("Редактировать");
-    expect(editButton.getAttribute("data-color")).toBe("primary");
+    await waitFor(() => {
+      expect(mockDeleteTask).toHaveBeenCalledWith("test-task-123");
+    });
   });
 });
