@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  json-server:
+    build:
+      context: ./json-server
+      dockerfile: Dockerfile
+    container_name: tasks-manager-api
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./json-server/db.json:/app/db.json
+    networks:
+      - tasks-network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_HOST: http://json-server:3000
+    container_name: tasks-manager-frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - json-server
+    networks:
+      - tasks-network
+    restart: unless-stopped
+
+networks:
+  tasks-network:
+    driver: bridge
+
