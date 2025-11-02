@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:20-alpine
 
 WORKDIR /app
 
@@ -6,12 +6,13 @@ WORKDIR /app
 COPY package*.json ./
 
 # Устанавливаем зависимости
-RUN npm ci
+RUN npm ci --omit=dev
 
 # Копируем данные
 COPY db.json ./
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+# Используем --host 0.0.0.0 чтобы слушать на всех интерфейсах
+CMD ["npx", "json-server", "--watch", "db.json", "--port", "3000", "--host", "0.0.0.0"]
 
