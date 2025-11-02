@@ -7,8 +7,8 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./json-server:/app:delegated
-      - /app/node_modules
+      # Подключаем Docker volume для хранения данных
+      - json_data:/data
     networks:
       - tasks-network
     restart: unless-stopped
@@ -32,3 +32,6 @@ networks:
   tasks-network:
     driver: bridge
 
+# Добавляем декларацию volume для хранения данных
+volumes:
+  json_data:
